@@ -32,10 +32,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 const db = require("./models");
-const req = require("express/lib/request");
-console.log(db);
 const Role = db.role;
-mongoose.connect(process.env.DB_URI, {
+mongoose
+  .connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
