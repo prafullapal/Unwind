@@ -26,15 +26,6 @@ const Profile = mongoose.model(
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
-      myPosts: {
-        type: [
-          {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Post",
-          },
-        ],
-        default: [],
-      },
       contactInfo: ContactInfoSchema,
     },
     {

@@ -36,6 +36,7 @@ const Post = mongoose.model(
       author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+        required: true,
       },
       tags: [
         {
