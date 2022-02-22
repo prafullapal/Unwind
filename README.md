@@ -21,8 +21,8 @@ $ npm start
 * /user/posts/myPosts/create [POST]
 * /user/posts/myPosts/:postId [GET, PUT, DELETE]
 * /user/posts/myPosts/:postId/like [GET, DELETE]
-* /user/posts/myPosts/:postId/comments [GET, POST, DELETE*]
-* /user/posts/myPosts/:postId/comments/:commentId [GET, PUT, DELETE*]
+* /user/posts/myPosts/:postId/comments [GET, POST, DELETE]
+* /user/posts/myPosts/:postId/comments/:commentId [GET, PUT, DELETE]
 * /user/posts/myPosts/:postId/comments/:commentId/like [GET, DELETE]
 
 * /user/profile [GET, POST]

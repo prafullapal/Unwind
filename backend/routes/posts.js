@@ -172,9 +172,7 @@ router
       .then(
         (post) => {
           if (post != null) {
-            for (var i = post.comments.length - 1; i >= 0; i--) {
-              post.comments.id(post.comments[i]._id).deleteMany();
-            }
+            post.comments = []
             post.save().then(
               (post) => {
                 res.status(200).json(post);
@@ -219,9 +217,6 @@ router
       .then(
         (post) => {
           if (post != null && post.comments.id(req.params.commentId) != null) {
-            if (req.body.rating) {
-              post.comments.id(req.params.commentId).rating = req.body.rating;
-            }
             if (req.body.comment) {
               post.comments.id(req.params.commentId).comment = req.body.comment;
             }
@@ -246,30 +241,12 @@ router
       .catch((err) => next(err));
   })
   .delete([authJwt.verifyToken], (req, res, next) => {
-    Post.findById(req.params.postId)
-      .then(
-        (post) => {
-          if (post != null && post.comments.id(req.params.commentId) != null) {
-            post.comments.id(req.params.commentId).deleteMany();
-            post.save().then(
-              (post) => {
-                res.status(200).json(post);
-              },
-              (err) => next(err)
-            );
-          } else if (post == null) {
-            err = new Error("Post" + req.params.postId + " not Found.");
-            err.status = 404;
-            return next(err);
-          } else {
-            err = new Error("Comment" + req.params.commentId + " not Found.");
-            err.status = 404;
-            return next(err);
-          }
-        },
-        (err) => next(err)
-      )
-      .catch((err) => next(err));
+    Post.findByIdAndUpdate(req.params.postId, { $pull: { 'comments': { _id: req.params.commentId }}})
+    .then((post)=>{
+      return res.status(200).send(post);
+    },
+    (err) => next(err))
+    .catch((err) => next(err));
   });
 
 router
