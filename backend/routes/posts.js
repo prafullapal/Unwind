@@ -146,7 +146,11 @@ router
         (post) => {
           if (post != null) {
             console.log(post);
-            post.comments.push(req.body);
+            const comments = {
+              comment: req.body.comment,
+              author: req.userId 
+            }
+            post.comments.push(comments);
             post.save().then(
               (post) => {
                 res.status(200).json(post);

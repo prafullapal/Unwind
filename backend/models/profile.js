@@ -1,15 +1,5 @@
 const mongoose = require("mongoose");
 
-const ContactInfoSchema = new mongoose.Schema({
-  tel: {
-    type: Number,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-});
-
 const Profile = mongoose.model(
   "Profile",
   new mongoose.Schema(
@@ -22,11 +12,29 @@ const Profile = mongoose.model(
         type: String,
         required: true,
       },
+      tel: {
+        type: Number,
+      },
+      email: {
+        type: String,
+        required: true,
+      },
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
-      contactInfo: ContactInfoSchema,
+      following: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+      followers: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
     },
     {
       timestamps: true,
